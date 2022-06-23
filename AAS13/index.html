@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+</head>  
+
+<body>
+    <input type="email" placeholder="ingrese su email" id="usr">
+    <input type="password" placeholder="ingrese su contraseña" id="pwd">
+    <button onclick="Registrar()">Enviar</button>
+
+    <script type="module">
+        // Import the functions you need from the SDKs you need
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.8.3/firebase-app.js";
+        import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.8.3/firebase-analytics.js";
+        import { auth } from "https://www.gstatic.com/firebasejs/9.8.3/firebase-auth.js";
+        // TODO: Add SDKs for Firebase products that you want to use
+        // https://firebase.google.com/docs/web/setup#available-libraries
+      
+        // Your web app's Firebase configuration
+        // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+        const firebaseConfig = {
+          apiKey: "AIzaSyAZqQ6dx-3W2-Wj53o_ZNMpv34y_tjXQ0A",
+          authDomain: "login-30b16.firebaseapp.com",
+          projectId: "login-30b16",
+          storageBucket: "login-30b16.appspot.com",
+          messagingSenderId: "7626271658",
+          appId: "1:7626271658:web:7eb4cb96545278bb5e59d3",
+          measurementId: "G-7GSDDJ9Q6X"
+        };
+      
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const analytics = getAnalytics(app);
+      </script>
+       
+      
+      <script src="./js/login.js"></script>
+    
+</body>
+</html>

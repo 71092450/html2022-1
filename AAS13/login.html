@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login2</title>
+</head>
+<body>
+    <input type="email" name="" id="usr" placeholder="Ingrese su email">
+    <input type="password" name="" id="pwd" placeholder="Ingrese su contraseña">
+    <button id="btnEnviar">Enviar</button>
+
+    <script type="module">
+        // Import the functions you need from the SDKs you need
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.8.3/firebase-app.js";
+        // TODO: Add SDKs for Firebase products that you want to use
+        import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/9.8.3/firebase-auth.js";
+        // https://firebase.google.com/docs/web/setup#available-libraries
+      
+        // Your web app's Firebase configuration
+        const firebaseConfig = {
+          apiKey: "AIzaSyD0BZN9CKi0Wl5wbfl_P9c_srYNXmLaNgU",
+          authDomain: "login2-8723f.firebaseapp.com",
+          projectId: "login2-8723f",
+          storageBucket: "login2-8723f.appspot.com",
+          messagingSenderId: "169228187706",
+          appId: "1:169228187706:web:3ec8ef9030088202e21d03"
+        };
+      
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+
+          
+
+          document.getElementById('btnEnviar').addEventListener('click', ()=>
+     
+          {
+            let email= document.getElementById("usr").value;
+          let password = document.getElementById("pwd").value;
+             
+             console.log("entro" );
+             console.log(email);
+             console.log(password);
+             
+             
+
+
+
+            createUserWithEmailAndPassword(auth, email, password)
+  .then((userCredential) => {
+    // Signed in
+    const user = userCredential.user;
+    // ...
+    console.log("Usuario creado")
+  })
+  .catch((error) => {
+    const errorCode = error.code;
+    const errorMessage = error.message;
+    // ..
+    console.log("Mensaje de error :" + error.message)
+  });
+          })
+
+
+       
+
+
+
+      </script>
+</body>
+</html>
