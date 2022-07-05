@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <link rel="stylesheet" href=https://cdn.jsdelivr.net/npm/bootswatch@4.5.2/dist/simplex/bootstrap.min.css>
+    <title>Base de datos</title>
+</head>
+<body>
+    <div  class="container">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-body">
+                        <form id="task-form">
+                            <div class="form-group">
+                                <input type="text" id="task-title" class="form-control" placeholder="Titulo de la tarea">
+                            </div>
+                            <div class="form-group">
+                                <textarea id="task-description" rows="3" class="form-control"
+                                    placeholder="Descripcion de la tarea"></textarea>
+
+                            </div>
+                            <button class="btn btn-primary" id="btnGuardar">Guardar</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+
+
+
+
+
+
+
+    <script type="module">
+        // Import the functions you need from the SDKs you need
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.8.4/firebase-app.js";
+        // TODO: Add SDKs for Firebase products that you want to use
+        // https://firebase.google.com/docs/web/setup#available-libraries
+        import { getFirestore,doc, setDoc }  from "https://www.gstatic.com/firebasejs/9.8.4/firebase-firestore.js";
+      
+        // Your web app's Firebase configuration
+        const firebaseConfig = {
+          apiKey: "AIzaSyBtMayfzyUdCFL-53pPchfzUH25jQ037iw",
+          authDomain: "basededatos2-55f8b.firebaseapp.com",
+          projectId: "basededatos2-55f8b",
+          storageBucket: "basededatos2-55f8b.appspot.com",
+          messagingSenderId: "473487354492",
+          appId: "1:473487354492:web:036c56295759c92ca537f9"
+        };
+      
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
+
+       const formulario = document.getElementById("task-form");
+
+       formulario.addEventListener("submit" , async(e) => 
+       {
+           e.preventDefault(); // evita refrescar la pagina
+           
+           const title = formulario["task-title"].value;
+           const description =formulario["task-description"].value;
+
+           console.log(title,description);
+           
+           // Add a new document in collection "cities"
+            const respuesta = await setDoc(doc(db, "tareas", "LA"), {
+            titulo:title,
+            descripcion: description            
+            }); 
+       })
+       console.log(respuesta);
+
+
+     
+     </script>
+</body>
+</html>
