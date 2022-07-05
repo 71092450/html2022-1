@@ -8,37 +8,60 @@
 </head>  
 
 <body>
-    <input type="email" placeholder="ingrese su email" id="usr">
-    <input type="password" placeholder="ingrese su contraseña" id="pwd">
-    <button onclick="Registrar()">Enviar</button>
+  <input type="email" placeholder="Ingrese su email" id="usr">
+    <input type="password" placeholder="Ingrese su contraseña" id="pwd">
+    <button id="btnEnviar">Enviar</button>
 
     <script type="module">
-        // Import the functions you need from the SDKs you need
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.8.3/firebase-app.js";
-        import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.8.3/firebase-analytics.js";
-        import { auth } from "https://www.gstatic.com/firebasejs/9.8.3/firebase-auth.js";
-        // TODO: Add SDKs for Firebase products that you want to use
-        // https://firebase.google.com/docs/web/setup#available-libraries
+      // Import the functions you need from the SDKs you need
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/9.8.3/firebase-app.js";
+      //  import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.8.3/firebase-analytics.js";
+      import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/9.8.3/firebase-auth.js";
+      // TODO: Add SDKs for Firebase products that you want to use
+      // https://firebase.google.com/docs/web/setup#available-libraries
+    
+      // Your web app's Firebase configuration
+      // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+      const firebaseConfig = {
+        apiKey: "AIzaSyBnHR4VS8ENK7xRFT14zlNHT_pxG9Bx5h8",
+        authDomain: "login-a73e9.firebaseapp.com",
+        projectId: "login-a73e9",
+        storageBucket: "login-a73e9.appspot.com",
+        messagingSenderId: "170954639009",
+        appId: "1:170954639009:web:9acccf06eb109cb23752e0",
+        measurementId: "G-2847KR4J08"
+      };
+    
+      // Initialize Firebase
+      const app = initializeApp(firebaseConfig);
+      //const analytics = getAnalytics(app);
+      const auth = getAuth(app);
       
-        // Your web app's Firebase configuration
-        // For Firebase JS SDK v7.20.0 and later, measurementId is optional
-        const firebaseConfig = {
-          apiKey: "AIzaSyAZqQ6dx-3W2-Wj53o_ZNMpv34y_tjXQ0A",
-          authDomain: "login-30b16.firebaseapp.com",
-          projectId: "login-30b16",
-          storageBucket: "login-30b16.appspot.com",
-          messagingSenderId: "7626271658",
-          appId: "1:7626271658:web:7eb4cb96545278bb5e59d3",
-          measurementId: "G-7GSDDJ9Q6X"
-        };
+      document.getElementById("btnEnviar").addEventListener("click", () =>
+
+        {
+          var usuario = document.getElementById("usr").value;
+          var contrasena = document.getElementById("pwd").value;
+          console.log("Cuenta");
+          createUserWithEmailAndPassword(auth, usuario, contrasena)
+          .then((userCredential) => {
+            // Signed in
+            const user = userCredential.user;
+            console.log("Cuenta creada");
+            // ...
+          })
+          .catch((error) => {
+            const errorCode = error.code;
+            const errorMessage = error.message;              
+            // ..
+            console.log("Mensaje de error: " + error+" - "+errorMessage);
+          });
+        })
+    
+
+    </script>
       
-        // Initialize Firebase
-        const app = initializeApp(firebaseConfig);
-        const analytics = getAnalytics(app);
-      </script>
-       
-      
-      <script src="./js/login.js"></script>
+     
     
 </body>
 </html>
