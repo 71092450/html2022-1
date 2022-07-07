@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Base de Datos</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootswatch@4.5.2/dist/simplex/bootstrap.min.css">
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-body">
+                        <form id="task-form">
+                            <div class="form-group">
+                                <input type="text" class="form-control" id="task-title" autofocus placeholder="Titulo">
+                            </div>
+                            <div class="form-group">
+                                <textarea id="task-description" class="form-control" rows="3" placeholder="Descripcion"></textarea>
+                            </div>
+                            <button class="btn btn-primary" id="btnGuardar">Guardar</button>       
+                        </form>
+                    </div>
+                </div>
+                <div class="col-md-6" id="task-container">
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+    
+    <script type="module">
+        // Import the functions you need from the SDKs you need
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.8.4/firebase-app.js";
+        // TODO: Add SDKs for Firebase products that you want to use
+        // https://firebase.google.com/docs/web/setup#available-libraries
+        import { getFirestore, doc, setDoc, addDoc, collection, getDocs, query, onSnapshot } from "https://www.gstatic.com/firebasejs/9.8.4/firebase-firestore.js";
+      
+        // Your web app's Firebase configuration
+        const firebaseConfig = {
+          apiKey: "AIzaSyBG_S3jsiw0jAdZ8_I5hh2VM6TjRxQ0p-I",
+          authDomain: "basededatos2-351fb.firebaseapp.com",
+          projectId: "basededatos2-351fb",
+          storageBucket: "basededatos2-351fb.appspot.com",
+          messagingSenderId: "1044684188422",
+          appId: "1:1044684188422:web:d65ddb81b3417b2d2b4c87"
+        };
+      
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        // Initialize Cloud Firestore and get a reference to the service
+        const db = getFirestore(app);
+
+
+
+        const formulario = document.getElementById("task-form");
+
+        formulario.addEventListener("submit", async(e)=>
+        {
+            //evita refrescar la pagina
+            e.preventDefault();
+
+            const title = formulario["task-title"].value;
+            const description = formulario["task-description"].value;
+
+            /*//console.log(title,description);
+            // Add a new document in collection "cities"
+            const respuesta = await setDoc(doc(db, "tareas", "LA"), {
+            titulo: title,
+            descripcion: description
+            });*/            
+
+            // Add a new document with a generated id.
+            const docRef = await addDoc(collection(db, "tasks"), {
+            titulo: title,
+            descripcion: description
+            });
+            //console.log("Document written with ID: ", docRef.id);
+
+            formulario.reset();
+
+            //lista de nuevo la base de datos
+        })
+
+        window.addEventListener("DOMContentLoaded", async()=>{    
+            const container = document.getElementById("task-container");
+
+            /*const querySnapshot = await getDocs(collection(db, "tasks"));
+            querySnapshot.forEach((doc) => {
+                // doc.data() is never undefined for query doc snapshots
+                console.log(doc.id, " => ", doc.data());
+                container.innerHTML =  container.innerHTML +
+                "<div class=card card-body mt-2 border-primary>"+
+                    "<h3>"+doc.data().titulo+"</h3>"+
+                    "<p>"+doc.data().descripcion+"</p>"+
+                    "<div>"+
+                    '<button class="btn btn-primary">Delete</button>'+
+                    "</div>"+
+                    "</div>";
+            });    */ 
+            
+
+            const q = query(collection(db, "tasks"));
+
+            const unsubscribe = onSnapshot(q, (querySnapshot) => {
+  querySnapshot.forEach(     (doc) =>  { 
+                                            container.innerHTML =  container.innerHTML +
+                                            "<div class=card card-body mt-2 border-primary>"+
+                                            "<h3>"+doc.data().titulo+"</h3>"+
+                                            "<p>"+doc.data().descripcion+"</p>"+
+                                            "<div>"+
+                                            '<button class="btn btn-primary">Delete</button>'+
+                                            "</div>"+
+                                            "</div>";
+                                        });
+                                                                });            
+    });
+      </script>
+</body>
+</html>
+Footer
+© 2022 GitHub, Inc.
+Footer navigation
+Terms
+Privacy
+Securi

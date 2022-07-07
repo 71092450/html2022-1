@@ -11,6 +11,7 @@
     <div  class="container">
         <div class="row">
             <div class="col-md-4">
+
                 <div class="card">
                     <div class="card-body">
                         <form id="task-form">
@@ -25,6 +26,9 @@
                             <button class="btn btn-primary" id="btnGuardar">Guardar</button>
                         </form>
                     </div>
+                </div>
+                <div class="col-md-6" id="task-container">
+
                 </div>
             </div>
         </div>
@@ -43,7 +47,7 @@
         // TODO: Add SDKs for Firebase products that you want to use
         // https://firebase.google.com/docs/web/setup#available-libraries
         import { getFirestore,doc, setDoc }  from "https://www.gstatic.com/firebasejs/9.8.4/firebase-firestore.js";
-      
+        import { collection, getDocs } from "firebase/firestore";
         // Your web app's Firebase configuration
         const firebaseConfig = {
           apiKey: "AIzaSyBtMayfzyUdCFL-53pPchfzUH25jQ037iw",
@@ -68,15 +72,57 @@
            const title = formulario["task-title"].value;
            const description =formulario["task-description"].value;
 
-           console.log(title,description);
+          /* console.log(title,description);
            
            // Add a new document in collection "cities"
             const respuesta = await setDoc(doc(db, "tareas", "LA"), {
             titulo:title,
             descripcion: description            
-            }); 
+            }); */
+
+
+
+           /*console.log(respuesta);*/
+
+           const docRef = await addDoc(colection(db, ))
+
+
+
+           formulario.reset();
+           title.focus();
+
+
        })
-       console.log(respuesta);
+
+       window.addEventListener("DOMContentLoaded" , () =>{
+           const container = document.getElementById("task container");
+          
+       
+
+            const querySnapshot = await getDocs(collection(db, "cities"));
+            querySnapshot.forEach((doc) => {
+             // doc.data() is never undefined for query doc snapshots
+            console.log(doc.id, " => ", doc.data());
+            container.innerHTML = container.innerHTML + 
+            "<div class = card-body mt-ñ2 border-primary>" + doc.data().titulo+ "</div>";
+            "<h3>" + doc.data().titulo+"</h3>"+
+            "<p>" + doc.data.descripcion + "</p>";
+            
+            
+       });
+  });
+        
+        
+        
+        
+        
+       
+
+
+
+
+
+    
 
 
      
